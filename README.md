@@ -1,4 +1,4 @@
-# APDC-PEI 25/26 — First Web Application (Part 4)
+# ADC-PEI 25/26 — First Web Application (Part 4)
 
 Building on Part 3, this version introduces **Google Cloud Tasks** to offload long-running computations asynchronously, and adds a **protected secret page** accessible only via the web interface.
 
@@ -35,7 +35,8 @@ The `/rest/utils/compute` endpoint demonstrates how to offload a long-running ta
 
 Before you begin, make sure you have the following installed:
 
-- [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+- [Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) / [Java 21](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+- [Python 3.10](https://www.python.org/downloads/release/python-3100/) (for the Google Cloud SDK download)
 - [Apache Maven](https://maven.apache.org/install.html)
 - [Git](https://git-scm.com/)
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) (for cloud deployment)
@@ -50,8 +51,8 @@ Before you begin, make sure you have the following installed:
 Fork the project on GitHub, then clone your fork locally:
 
 ```bash
-git clone git@github.com:APDC-Projeto/apdc-pei-2526-part4.git
-cd apdc-pei-2526-part4
+git clone git@github.com:ADC-Projeto/apdc-pei-2526-part4.git
+cd adc-pei-2526-part4
 ```
 
 ### 2. Import into Eclipse
@@ -148,7 +149,7 @@ Returns `200 OK` immediately, while the actual computation is processed asynchro
 src/
 └── main/
     ├── java/
-    │   └── pt/unl/fct/di/apdc/firstwebapp/
+    │   └── pt/unl/fct/di/adc/firstwebapp/
     │       ├── filters/
     │       │   └── AdditionalResponseHeadersFilter.java  ← CORS filter
     │       ├── resources/
