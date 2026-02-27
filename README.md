@@ -51,7 +51,7 @@ Before you begin, make sure you have the following installed:
 Fork the project on GitHub, then clone your fork locally:
 
 ```bash
-git clone git@github.com:ADC-Projeto/apdc-pei-2526-part4.git
+git clone git@github.com:ADC-Projeto/adc-pei-2526-part4.git
 cd adc-pei-2526-part4
 ```
 
