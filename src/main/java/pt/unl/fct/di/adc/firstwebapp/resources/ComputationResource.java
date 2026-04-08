@@ -66,7 +66,7 @@ public class ComputationResource {
             String queuePath = QueueName.of(projectId, location, queueName).toString();
             Task.Builder taskBuilder =
                     Task.newBuilder().setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                            .setRelativeUri("/rest/utils/compute").setHttpMethod(HttpMethod.GET)
+                            .setRelativeUri("/rest/utils/compute").setHttpMethod(HttpMethod.POST)
                             .build());
             taskBuilder.setScheduleTime(Timestamp.newBuilder().setSeconds(Instant.now(Clock.systemUTC()).getEpochSecond()));
             client.createTask(queuePath, taskBuilder.build());
@@ -76,7 +76,7 @@ public class ComputationResource {
 
 
 
-    @GET
+    @POST
 	@Path("/compute")
 	public Response executeComputeTask() throws IOException {
         LOG.fine("Starting to execute computation task");
