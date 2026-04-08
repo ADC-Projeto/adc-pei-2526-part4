@@ -6,7 +6,7 @@ Building on Part 3, this version introduces **Google Cloud Tasks** to offload lo
 
 ## What changed from Part 3
 
-- A new **`POST /rest/utils/compute`** endpoint was added that triggers a long-running computation (10 min sleep)
+- A new **`GET /rest/utils/compute`** endpoint was added that triggers a long-running computation (10 min sleep)
 - A new **`GET /rest/utils/backgroundCompute`** endpoint was added that triggers an async task via **Google Cloud Tasks** instead of blocking the request thread
 - A **`webapp/secret/index.html`** page was added, intended to be accessible only to authenticated users
 
@@ -20,14 +20,14 @@ The app serves a simple web page with the following available services:
 - **`GET /rest/login/{username}`** — checks whether a username is already taken
 - **`GET /rest/utils/hello`** — intentionally throws an exception and redirects to `/error/500.html`
 - **`GET /rest/utils/time`** — returns the current server time in JSON
-- **`POST /rest/utils/compute`** — triggers a long-running computation (10 min sleep)
+- **`GET /rest/utils/compute`** — triggers a long-running computation (10 min sleep)
 - **`GET /rest/utils/backgroundCompute`** — enqueues an async computation task via Cloud Tasks
 
 ---
 
 ## Cloud Tasks
 
-The `/rest/utils/backgroundCompute` endpoint demonstrates how to offload a long-running task (e.g. a 10-minute computation) without blocking the HTTP request. Instead of running it inline, it enqueues a task to **Google Cloud Tasks**, which then triggers a `POST /rest/utils/compute` on the App Engine backend asynchronously.
+The `/rest/utils/backgroundCompute` endpoint demonstrates how to offload a long-running task (e.g. a 10-minute computation) without blocking the HTTP request. Instead of running it inline, it enqueues a task to **Google Cloud Tasks**, which then triggers a `GET /rest/utils/compute` on the App Engine backend asynchronously.
 
 > ⚠️ Cloud Tasks only works when deployed to Google App Engine. It will not work when running locally with `mvn appengine:run`.
 
