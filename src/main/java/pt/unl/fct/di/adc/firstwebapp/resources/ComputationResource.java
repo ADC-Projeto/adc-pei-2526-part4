@@ -81,11 +81,12 @@ public class ComputationResource {
 	public Response executeComputeTask() throws IOException {
         LOG.fine("Starting to execute computation task");
         try {
-            Thread.sleep(60 * 1000 * 10); // 10 min...
+            Thread.sleep(60 * 1000 * 15); // 15 min...
         } catch (Exception e) {
             LOG.logp(Level.SEVERE, this.getClass().getCanonicalName(), "executeComputeTask", "An exception has occurred", e);
             return Response.serverError().build();
-        } // Simulates 60s execution
+        } // Simulates a 15-min computation exceeding the request timeout defined by Google Cloud
+          // Google Cloud frequently updates this timeout value, currently is set to 10 min...
         return Response.ok().build();
     }
 
