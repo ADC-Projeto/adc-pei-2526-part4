@@ -52,12 +52,25 @@ public class ComputationResource {
 		return Response.ok().entity(g.toJson(fmt.format(new Date()))).build();
 	}
 
+    @GET
+    @Path("/compute")
+    public Response compute() {
+        LOG.fine("Starting to execute computation task");
+        try {
+            Thread.sleep(60 * 1000 * 10); // 10 min
+        } catch (Exception e) {
+            LOG.logp(Level.SEVERE, this.getClass().getCanonicalName(), "executeComputeTask", "An exception has occurred", e);
+            return Response.serverError().build();
+        }
+        
+        return Response.ok().build();
+    }
 
 	@GET
     @Path("/backgroundCompute")
     public Response triggerBackgroundComputeTask() throws IOException {
 		// TODO: put here your project id (real-world deployments define critical configs via env variables or secret vaults..)
-        String projectId = "potent-galaxy-378715";
+        String projectId = "vital-reef-488417-k2";
 		// TODO: create a task queue through the Google Cloud Web Console (Cloud Tasks)
         String queueName = "Default";
         String location = "europe-west6";
@@ -66,27 +79,12 @@ public class ComputationResource {
             String queuePath = QueueName.of(projectId, location, queueName).toString();
             Task.Builder taskBuilder =
                     Task.newBuilder().setAppEngineHttpRequest(AppEngineHttpRequest.newBuilder()
-                            .setRelativeUri("/rest/utils/compute").setHttpMethod(HttpMethod.POST)
+                            .setRelativeUri("/rest/utils/compute").setHttpMethod(HttpMethod.GET)
                             .build());
             taskBuilder.setScheduleTime(Timestamp.newBuilder().setSeconds(Instant.now(Clock.systemUTC()).getEpochSecond()));
             client.createTask(queuePath, taskBuilder.build());
         }
-        return Response.ok().build();
-    }
 
-
-
-    @POST
-	@Path("/compute")
-	public Response executeComputeTask() throws IOException {
-        LOG.fine("Starting to execute computation task");
-        try {
-            Thread.sleep(60 * 1000 * 15); // 15 min...
-        } catch (Exception e) {
-            LOG.logp(Level.SEVERE, this.getClass().getCanonicalName(), "executeComputeTask", "An exception has occurred", e);
-            return Response.serverError().build();
-        } // Simulates a 15-min computation exceeding the request timeout defined by Google Cloud
-          // Google Cloud frequently updates this timeout value, currently is set to 10 min...
         return Response.ok().build();
     }
 
